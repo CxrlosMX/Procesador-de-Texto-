@@ -14,8 +14,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.text.StyledEditorKit;
 
 /**
  *
@@ -68,7 +70,23 @@ public class Lamina extends JPanel {
         chico = new JMenuItem("20");
         mediano = new JMenuItem("40");
         grande = new JMenuItem("60");
-        //Agregamos los submenus a su opcion principal
+        //Agregamos un menu emergente
+        ///---------------------------------------------
+
+        //Agregamos los submenu a su opcion principal
+        JPopupMenu menuEmergente = new JPopupMenu(); //Inicializamos nuestro menu emergente
+        //Creamos los objetos que iran en nuestro menu emergente
+        JMenuItem negritaOP = new JMenuItem("Negrita");
+        JMenuItem cursivaOP = new JMenuItem("Cursiva");
+        //Les agregamos el evento
+        negritaOP.addActionListener(new StyledEditorKit.BoldAction());
+        cursivaOP.addActionListener(new StyledEditorKit.ItalicAction());
+        //Agregamos nuestras opciones a nuestro menu emergente
+        menuEmergente.add(negritaOP);
+        menuEmergente.add(cursivaOP);
+        //Definimos donde se usara ese menu emergente
+        AreaTexto.setComponentPopupMenu(menuEmergente);
+        //-*-------------------
         fuente.add(arial);
         fuente.addSeparator();
         fuente.add(serif);
@@ -85,6 +103,7 @@ public class Lamina extends JPanel {
         barra.add(fuente);
         barra.add(estilo);
         barra.add(tamano);
+
         //Creamos la instanicia del evento
         gestionEvento evento = new gestionEvento();
         arial.addActionListener(evento);
